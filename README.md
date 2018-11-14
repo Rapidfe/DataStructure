@@ -33,9 +33,10 @@ ST* create_stack() {
 }
 ```
 create_stack함수를 정의한다. <br>
-**malloc함수를 사용하는 이유?**<br>
-*일반 구조체로 선언하면 create_stack()이라는 함수를 벗어나면서 데이터가 사라진다. 외부함수에서도 사용할 수 있는 stack 구조체를 생성하기 위해 malloc함수로 메모리를 할당한다.*<br>
+ **malloc함수를 사용하는 이유?**<br>
+*일반 구조체로 선언하면 create_stack()이라는 함수를 벗어나면서 데이터가 사라진다. 외부함수에서도 사용할 수 있는 stack 구조체를 생성하기 위해 malloc함수로 메모리를 할당한다. malloc으로 생성한 데이터는 free함수로 삭제할때까지 메모리를 차지하며 남아있으므로 삭제에 유의해야 한다.*<br>
 메모리가 정상적으로 할당되지 않았을 경우에는 0을 반환하게 하여 충돌을 방지한다.
+```
 int push(ST* stack,void* in) {
 	printf("pushing a data into stack ...\n");
 	STN* node = (STN*)malloc(sizeof(STN));
@@ -47,7 +48,10 @@ int push(ST* stack,void* in) {
 	stack->count;
 	return 1;
 }
-
+```
+push함수를 정의한다. push하는 데이터를 담을 node구조체를 만든다.<br>
+stack의 top이었던 node가 새로운 node의 link가되고, 이 새 node가 stack의 top이 된다.
+```
 void* pop(ST* stack) {
 	if(stack->count==0)
 		return 0;
@@ -60,6 +64,8 @@ void* pop(ST* stack) {
 		return data_out;
 	}
 }
+```
+
 ```
 int main() {
 	ST* s1 = create_stack();
