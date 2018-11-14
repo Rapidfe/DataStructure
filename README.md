@@ -33,7 +33,9 @@ ST* create_stack() {
 }
 ```
 create_stack함수를 정의한다. <br>
-*함수를 벗어나도 데이터가 유지되도록 malloc함수로 메모리를 할당한다. 메모리가 정상적으로 할당되지 않았을 경우에는 0을 반환하여 충돌을 방지한다. 처음 생성되었으므로 count는 0이고 top은 0을 가리키고 있다.
+**malloc함수를 사용하는 이유?**<br>
+*일반 구조체로 선언하면 create_stack()이라는 함수를 벗어나면서 데이터가 사라진다. 외부함수에서도 사용할 수 있는 stack 구조체를 생성하기 위해 malloc함수로 메모리를 할당한다.*<br>
+메모리가 정상적으로 할당되지 않았을 경우에는 0을 반환하게 하여 충돌을 방지한다.
 int push(ST* stack,void* in) {
 	printf("pushing a data into stack ...\n");
 	STN* node = (STN*)malloc(sizeof(STN));
