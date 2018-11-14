@@ -14,11 +14,51 @@ typedef struct stack {
 ```
 stack 구조체를 정의하고 ST로 typedef 선언한다.<br>
 여기서는 구조체의 이름 'stack'을 생략해도 된다.
-
+```
 ST* create_stack();
 int push(ST* stack,void* in);
 void* pop(ST* stack);
+```
+사용할 함수들을 선언한다.<br>
+여기까지는 원래 헤더파일에 들어갈 내용이다. stack을 할 때는 헤더,소스,메인 파일을 따로 나누지않았다.<br><br>
+아래부터는 소스파일에 들어갈 내용이다.
+```
+ST* create_stack() {
+	printf("creating stack ...");
+	ST* stack = (ST*)malloc(sizeof(ST));
+	if(!stack)
+		return 0;
+	stack->count=0;
+	stack->top=0;
+}
+```
+create_stack함수를 정의한다. <br>
+*함수를 벗어나도 데이터가 유지되도록 malloc함수로 메모리를 할당한다. 메모리가 정상적으로 할당되지 않았을 경우에는 0을 반환하여 충돌을 방지한다. 처음 생성되었으므로 count는 0이고 top은 0을 가리키고 있다.
+int push(ST* stack,void* in) {
+	printf("pushing a data into stack ...\n");
+	STN* node = (STN*)malloc(sizeof(STN));
+	if (!node)
+		return 0;
+	node->data_ptr = in;
+	node->link = stack->top;
+	stack->top = node;
+	stack->count;
+	return 1;
+}
 
+void* pop(ST* stack) {
+	if(stack->count==0)
+		return 0;
+	else {
+		STN* temp=stack->top;
+		void* data_out=temp->data_ptr;
+		stack->top=temp->link;
+		free(temp);
+		(stack->count)--;
+		return data_out;
+	}
+}
+```
 int main() {
 	ST* s1 = create_stack();
 	printf("s1\n");
@@ -96,36 +136,4 @@ int main() {
 }
 
 
-ST* create_stack() {
-	printf("creating stack ...");
-	ST* stack = (ST*)malloc(sizeof(ST));
-	if(!stack)
-		return 0;
-	stack->count=0;
-	stack->top=0;
-}
 
-int push(ST* stack,void* in) {
-	printf("pushing a data into stack ...\n");
-	STN* node = (STN*)malloc(sizeof(STN));
-	if (!node)
-		return 0;
-	node->data_ptr = in;
-	node->link = stack->top;
-	stack->top = node;
-	stack->count;
-	return 1;
-}
-
-void* pop(ST* stack) {
-	if(stack->count==0)
-		return 0;
-	else {
-		STN* temp=stack->top;
-		void* data_out=temp->data_ptr;
-		stack->top=temp->link;
-		free(temp);
-		(stack->count)--;
-		return data_out;
-	}
-}
