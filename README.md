@@ -1,19 +1,18 @@
-'''
+```
 typedef struct node {
 	void* data_ptr;
 	struct node* link;
 } STN;
-'''
-
-node 구조체를 정의하고 STN으로 typedef 선언한다.
+```
+node 구조체를 정의하고 STN으로 typedef 선언한다.<br>
 구조체의 정의에 해당 구조체가 속해있으므로 이 구조체의 이름 'node'는 생략해선 안된다.
-
+```
 typedef struct stack {
 	int count;
 	STN* top;
 } ST;
-
-stack 구조체를 정의하고 ST로 typedef 선언한다.
+```
+stack 구조체를 정의하고 ST로 typedef 선언한다.<br>
 여기서는 구조체의 이름 'stack'을 생략해도 된다.
 
 ST* create_stack();
