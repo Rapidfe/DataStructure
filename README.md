@@ -1,4 +1,4 @@
-## Stack의 구현과 활용
+## Stack의 구현과 push,pop함수 활용
 ```
 typedef struct node {
 	void* data_ptr;
