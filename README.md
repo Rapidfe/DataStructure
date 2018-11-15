@@ -20,8 +20,8 @@ ST* create_stack();
 int push(ST* stack,void* in);
 void* pop(ST* stack);
 ```
-사용할 함수들을 선언한다.<br>
-여기까지는 원래 헤더파일에 들어갈 내용이다. stack을 할 때는 헤더,소스,메인 파일을 따로 나누지않았다.<br><br>
+사용할 함수들을 선언한다.<br><br>
+여기까지는 원래 헤더파일에 들어갈 내용이다. stack을 할 때는 헤더,소스,메인 파일을 따로 나누지않았다.<br>
 아래부터는 소스파일에 들어갈 내용이다.
 ```
 ST* create_stack() {
@@ -51,8 +51,8 @@ int push(ST* stack,void* in) {
 	return 1;
 }
 ```
-push함수를 정의한다. push하는 데이터를 담을 node구조체를 만든다.<br>
-stack의 top이었던 node가 새로운 node의 link가되고, 이 새 node가 stack의 top이 된다.
+stack에 새로운 데이터를 삽입하는 push함수를 정의한다. <br>
+push하는 데이터를 담을 node구조체를 만든 뒤 stack의 top이었던 node가 새로운 node의 link가 되게하고, 새로운 node를 stack의 top으로 한다.
 ```
 void* pop(ST* stack) {
 	if(stack->count==0)
@@ -67,7 +67,25 @@ void* pop(ST* stack) {
 	}
 }
 ```
+stack의 top 데이터를 뽑아내는 pop함수를 정의한다.<br>
+pop되는 node는 malloc으로 할당된 데이터이므로 free함수로 삭제해야한다. pop되는 node의 link가 stack의 새로운 top이 되면 기존 top이 가리키고 있던 node, 즉 삭제해야할 node의 주소를 잃게되므로 top을 갱신하기 전에 top이 가지고있는 주소를 임시노드 temp에 백업해두어야 한다. pop되는 node의 data도 백업해두고 free해준다.
 
+### 간단한 활용
+2개의 stack을 하나로 merge해보기.
+```
+// 내용1			      // 내용2	
+│ 4 │     │ 9 │     │ 9 │	│ 4 │     │ 9 │     │ 9 │
+│ 3 │     │ 8 │     │ 8 │	│ 3 │     │ 8 │     │ 4 │
+│ 2 │  +  │ 7 │  =  │ 7 │	│ 2 │  +  │ 7 │  =  │ 8 │
+│ 1 │     │ 6 │     │ 6 │	│ 1 │     │ 6 │     │ 3 │
+│ 0 │     │ 5 │     │ 5 │	│ 0 │     │ 5 │     │ 7 │
+└───┘     └───┘     │ 4 │	└───┘     └───┘     │ 2 │
+		    │ 3 │			    │ 6 │
+		    │ 2 │			    │ 1 │
+		    │ 1 │			    │ 5 │
+		    │ 0 │			    │ 0 │
+		    └───┘			    └───┘
+```
 ```
 int main() {
 	ST* s1 = create_stack();
