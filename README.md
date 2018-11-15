@@ -40,7 +40,6 @@ create_stack함수를 정의한다. <br>
 메모리가 정상적으로 할당되지 않았을 경우에는 0을 반환하게 하여 충돌을 방지한다.
 ```
 int push(ST* stack,void* in) {
-	printf("pushing a data into stack ...\n");
 	STN* node = (STN*)malloc(sizeof(STN));
 	if (!node)
 		return 0;
@@ -107,6 +106,7 @@ int main() {
 		b;
 	}	
 	
+	printf("pushing a data into stack ...");
 	printf("s1's size: %d\ns2's size: %d\n",s1->count,s2->count);
 	
 	int* temp;
@@ -164,6 +164,20 @@ int main() {
 	//------------------------------------------------------ 내용2 구현
 	printf("\n");
 }
+```
 
-
-
+### 실행결과
+```
+creating stack ...s1
+creating stack ...s2
+pushing a data into stack ...
+s1's size: 5
+s2's size: 5
+s1 pop: 4 3 2 1 0
+s2 pop: 9 8 7 6 5
+s1's size: 0
+s2's size: 0
+creating stack ...s3
+s3 pop: 9 8 7 6 5 4 3 2 1 0
+s3 pop: 9 4 8 3 7 2 6 1 5 0
+```
