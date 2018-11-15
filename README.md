@@ -1,3 +1,5 @@
+Stack의 구현과 활용
+-------------
 ```
 typedef struct node {
 	void* data_ptr;
