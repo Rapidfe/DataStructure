@@ -35,6 +35,7 @@ int main() {
 		b;
 	}	
 	
+	printf("pushing a data into stack ...\n");
 	printf("s1's size: %d\ns2's size: %d\n",s1->count,s2->count);
 	
 	int* temp;
@@ -102,7 +103,6 @@ ST* create_stack() {
 }
 
 int push(ST* stack,void* in) {
-	printf("pushing a data into stack ...\n");
 	STN* node = (STN*)malloc(sizeof(STN));
 	if (!node)
 		return 0;
